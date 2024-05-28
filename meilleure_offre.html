@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agora Francia - Enchère</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Agora Francia</h1>
+            <div class="logo">
+                <div class="cart"></div>
+                <div class="text">AGORA</div>
+            </div>
+        </header>
+        <nav class="navigation">
+            <a href="accueil.html"><button>Accueil</button></a>
+            <a href="tout_parcourir.html"><button>Tout Parcourir</button></a>
+            <a href="notifications.html"><button>Notifications</button></a>
+            <a href="panier.html"><button>Panier</button></a>
+            <a href="compte.html"><button>Votre Compte</button></a>
+        </nav>
+        <section class="main-section">
+            <div class="intro">
+                <h2>Enchère pour l'Article Rare 5</h2>
+                <img src="Images/Kirby.webp" alt="Article Rare 5" class="article-image">
+                <p>Peluche Kirby Très Rare</p>
+                <p>Actuellement, la meilleure offre est de : <span id="current-bid">400€</span></p>
+                <form id="bid-form">
+                    <label for="max-bid">Votre enchère maximale:</label>
+                    <input type="number" id="max-bid" name="max-bid" min="1" required>
+                    <button type="submit">Enchérir</button>
+                </form>
+                <p id="bid-message"></p>
+            </div>
+        </section>
+        <footer>
+            &copy; 2024 Agora Francia. Tous droits réservés.
+        </footer>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
