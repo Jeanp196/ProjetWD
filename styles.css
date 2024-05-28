@@ -1,0 +1,300 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+}
+
+header h1 {
+    font-size: 36px;
+    text-align: center;
+    margin: 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 20px;
+}
+
+.cart {
+    width: 50px;
+    height: 30px;
+    border: 3px solid #007bff;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom: none;
+    position: relative;
+}
+
+.cart::before, .cart::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    width: 12px;
+    height: 12px;
+    border: 3px solid #007bff;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.cart::before {
+    left: 0;
+}
+
+.cart::after {
+    right: 0;
+}
+
+.text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    margin-left: 10px;
+}
+
+.navigation {
+    background-color: #007bff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.navigation button {
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.navigation button:hover {
+    background-color: #e9ecef;
+}
+
+.main-section {
+    flex: 1;
+    padding: 20px;
+    background-color: #f1f1f1;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.intro h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.selection-du-jour {
+    text-align: center;
+    margin-bottom: 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+.selection-du-jour h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel img {
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+.contact {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.contact h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+#map {
+    width: 50%;
+    height: 400px;
+    margin-top: 20px;
+    margin: auto;
+    border-radius: 5%;
+}
+
+footer {
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+.categories {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.category {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.category h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sub-category {
+    margin-bottom: 20px;
+}
+
+.sub-category h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.articles-row {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.article {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.article img {
+    max-width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.article p {
+    font-size: 16px;
+    text-align: center;
+}
+
+.article:hover {
+    transform: scale(1.05);
+}
+
+.rare {
+    border-color: #ff5733;
+}
+
+.high-end {
+    border-color: #33c1ff;
+}
+
+.regular {
+    border-color: #8d8d8d;
+}
+
+footer {
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.article button {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.article button:hover {
+    background-color: #0056b3;
+}
+
+.article-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+form label {
+    font-size: 16px;
+}
+
+form input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+}
+
+form button {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+#bid-message {
+    margin-top: 20px;
+    font-size: 16px;
+    color: green;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agora Francia</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Agora Francia</h1>
+            <div class="logo">
+                <div class="cart"></div>
+                <div class="text">AGORA</div>
+            </div>
+        </header>
+        <nav class="navigation">
+            <button>Accueil</button>
+            <a href="tout_parcourir.html"><button>Tout Parcourir</button></a>
+            <button>Notifications</button>
+            <button>Panier</button>
+            <button>Votre Compte</button>
+        </nav>
+        <section class="main-section">
+            <div class="intro">
+                <h2>Bienvenue sur Agora Francia</h2>
+                <p>Découvrez notre plateforme de vente en ligne où vous pouvez acheter, négocier, et enchérir sur une variété d'articles.</p>
+            </div>
+            <div class="selection-du-jour">
+                <h2>Sélection du jour</h2>
+                <div class="carousel">
+                    <div><img src="../Images/Kirby.webp" alt="Article 1"></div>
+                    <div><img src="../Images/puff.jpeg" alt="Article 2"></div>
+                    <div><img src="article3.jpg" alt="Article 3"></div>
+                </div>
+            </div>
+            <div class="contact">
+                <h2>Contactez-nous</h2>
+                <p>Email: contact@agorafrancia.com</p>
+                <p>Téléphone: +33 1 23 45 67 89</p>
+                <p>Adresse: 10 rue sextus michel, Paris, France</p>
+            </div>
+            <div id="map"></div>
+        </section>
+        <footer>
+            &copy; 2024 Agora Francia. Tous droits réservés.
+        </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+            });
+        });
+
+        // Initialize the Leaflet map
+        var map = L.map('map').setView([48.8566, 2.3522], 13); // Coordinates for Paris
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Add a marker to the map
+        L.marker([48.85111618041992, 2.2886924743652344]).addTo(map)
+            .bindPopup('Agora Francia')
+            .openPopup();
+    </script>
+</body>
+</html>
