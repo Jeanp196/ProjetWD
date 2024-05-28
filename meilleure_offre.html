@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agora Francia - Enchère</title>
+    <title>Agora Francia - Détail de l'Article</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,30 +16,48 @@
             </div>
         </header>
         <nav class="navigation">
-            <a href="accueil.html"><button>Accueil</button></a>
-            <a href="tout_parcourir.html"><button>Tout Parcourir</button></a>
-            <a href="notifications.html"><button>Notifications</button></a>
-            <a href="panier.html"><button>Panier</button></a>
-            <a href="compte.html"><button>Votre Compte</button></a>
+            <button onclick="window.location.href='accueil.html'">Accueil</button>
+            <button onclick="window.location.href='tout_parcourir.html'">Tout Parcourir</button>
+            <button>Notifications</button>
+            <button>Panier</button>
+            <button>Votre Compte</button>
         </nav>
         <section class="main-section">
-            <div class="intro">
-                <h2>Enchère pour l'Article Rare 5</h2>
-                <img src="Images/Kirby.webp" alt="Article Rare 5" class="article-image">
-                <p>Peluche Kirby Très Rare</p>
-                <p>Actuellement, la meilleure offre est de : <span id="current-bid">400€</span></p>
-                <form id="bid-form">
+            <div class="article-detail">
+                <h2>Titre de l'Article</h2>
+                <img src="Images/Kirby.webp" alt="Article Image">
+                <p>Description de l'article.</p>
+                <p>Prix de départ : 100€</p>
+                <p>Enchère la plus élevée : <span id="highest-bid">200€</span></p>
+                <form id="bid-form" method="POST" action="enchere.php">
+                    <input type="hidden" name="article_id" value="1">
+                    <input type="hidden" name="user_id" value="1"> <!-- ID de l'utilisateur -->
                     <label for="max-bid">Votre enchère maximale:</label>
-                    <input type="number" id="max-bid" name="max-bid" min="1" required>
+                    <input type="number" id="max-bid" name="bid_amount" min="1" required>
                     <button type="submit">Enchérir</button>
                 </form>
-                <p id="bid-message"></p>
             </div>
         </section>
         <footer>
             &copy; 2024 Agora Francia. Tous droits réservés.
         </footer>
     </div>
-    <script src="scripts.js"></script>
+    <script>
+        document.getElementById('bid-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var form = event.target;
+            var formData = new FormData(form);
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                location.reload();
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
 </body>
 </html>
