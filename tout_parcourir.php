@@ -13,9 +13,8 @@ try {
 }
 
 // Récupérer les articles mis en vente avec leurs catégories et types de vente
-$sql = "SELECT items.id, items.nom, items.description, items.prix, items.type_vente, photos_items.photo, categories.nom AS categorie_nom 
+$sql = "SELECT items.id, items.nom, items.description, items.prix, items.type_vente, items.photo_principale, categories.nom AS categorie_nom 
         FROM items 
-        LEFT JOIN photos_items ON items.id = photos_items.id_item 
         JOIN categories ON items.id_categorie = categories.id
         WHERE items.en_vente = 'oui'";
 $stmt = $pdo->prepare($sql);
@@ -66,7 +65,7 @@ foreach ($articles as $article) {
                             <div class="articles-row">
                                 <?php foreach ($articles as $article): ?>
                                     <div class="article">
-                                        <img src="<?php echo htmlspecialchars($article['photo']); ?>" alt="<?php echo htmlspecialchars($article['nom']); ?>">
+                                        <img src="<?php echo htmlspecialchars($article['photo_principale']); ?>" alt="<?php echo htmlspecialchars($article['nom']); ?>">
                                         <p><?php echo htmlspecialchars($article['nom']); ?></p>
                                         <p><?php echo htmlspecialchars($article['description']); ?></p>
                                         <p><?php echo htmlspecialchars($article['prix']); ?> €</p>
