@@ -1,3 +1,34 @@
+<?php
+// Connexion à la base de données
+$host = 'localhost';
+$dbname = 'agora_francia';
+$username = 'root'; // Remplacez par votre nom d'utilisateur
+$password = 'root'; // Remplacez par votre mot de passe
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Impossible de se connecter à la base de données : " . $e->getMessage());
+}
+
+// Récupérer les articles mis en vente avec leurs catégories et types de vente
+$sql = "SELECT items.id, items.nom, items.description, items.prix, items.type_vente, photos_items.photo, categories.nom AS categorie_nom 
+        FROM items 
+        LEFT JOIN photos_items ON items.id = photos_items.id_item 
+        JOIN categories ON items.id_categorie = categories.id
+        WHERE items.en_vente = 'oui'";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Organiser les articles par catégorie
+$categories = [];
+foreach ($articles as $article) {
+    $categories[$article['categorie_nom']][] = $article;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,7 +47,7 @@
             </div>
         </header>
         <nav class="navigation">
-            <button onclick="window.location.href='accueil.php'">Accueil</button>
+            <button onclick="window.location.href='index.php'">Accueil</button>
             <button onclick="window.location.href='tout_parcourir.php'">Tout Parcourir</button>
             <button>Notifications</button>
             <button>Panier</button>
@@ -28,68 +59,32 @@
                 <p>Explorez toutes les catégories des articles en vente sur Agora Francia.</p>
             </div>
             <div class="categories">
-                <?php
-                $servername = "localhost";
-                $username = "root";
-                $password = "root";
-                $dbname = "agora";
-
-                $conn = new mysqli($servername, $username, $password, $dbname);
-
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
-
-                $sql = "SELECT id, title, description, image, category FROM articles";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-                    while($row = $result->fetch_assoc()) {
-                        echo '<div class="category">';
-                        echo '<div class="article">';
-                        echo '<a href="article.php?article_id='.$row["id"].'">';
-                        echo '<img src="'.$row["image"].'" alt="'.$row["title"].'">';
-                        echo '</a>';
-                        echo '<p>'.$row["title"].'</p>';
-                        echo '<p>Enchère actuelle : <span id="current-bid-'.$row["id"].'">...</span></p>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
-                } else {
-                    echo "0 results";
-                }
-
-                $conn->close();
-                ?>
+                <?php if (count($categories) > 0): ?>
+                    <?php foreach ($categories as $categorie_nom => $articles): ?>
+                        <div class="category">
+                            <h3><?php echo htmlspecialchars($categorie_nom); ?></h3>
+                            <div class="articles-row">
+                                <?php foreach ($articles as $article): ?>
+                                    <div class="article">
+                                        <img src="<?php echo htmlspecialchars($article['photo']); ?>" alt="<?php echo htmlspecialchars($article['nom']); ?>">
+                                        <p><?php echo htmlspecialchars($article['nom']); ?></p>
+                                        <p><?php echo htmlspecialchars($article['description']); ?></p>
+                                        <p><?php echo htmlspecialchars($article['prix']); ?> €</p>
+                                        <p>Type de vente : <?php echo htmlspecialchars($article['type_vente']); ?></p>
+                                        <a href="article.php?id=<?php echo $article['id']; ?>">Voir Détails</a>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>Aucun article en vente pour le moment.</p>
+                <?php endif; ?>
             </div>
         </section>
         <footer>
             &copy; 2024 Agora Francia. Tous droits réservés.
         </footer>
     </div>
-    <script>
-        function updateHighestBid(articleId) {
-            fetch(`get_highest_bid.php?article_id=${articleId}`)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById(`current-bid-${articleId}`).textContent = data + '€';
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const articles = document.querySelectorAll('.article span[id^="current-bid-"]');
-            articles.forEach(article => {
-                const articleId = article.id.replace('current-bid-', '');
-                updateHighestBid(articleId);
-            });
-            setInterval(() => {
-                articles.forEach(article => {
-                    const articleId = article.id.replace('current-bid-', '');
-                    updateHighestBid(articleId);
-                });
-            }, 5000);
-        });
-    </script>
 </body>
 </html>
