@@ -98,6 +98,10 @@ header h1 {
     flex: 1;
     padding: 20px;
     background-color: #f1f1f1;
+    background-image: url(background.png);
+    background-size: cover; /* Couvre toute la section */
+    background-position: center; /* Centre l'image */
+    background-repeat: no-repeat; /* Ne répète pas l'image */
 }
 
 .intro {
@@ -299,85 +303,23 @@ form button:hover {
     color: green;
 }
 
-.article-detail {
-    text-align: center;
-    margin: auto;
-}
-
-.article-detail img {
-    max-width: 100%;
-    height: auto;
-}
-
-.article-detail form {
-    margin-top: 20px;
-}
-
-/* styles.css */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    width: 80%;
-    margin: 20px auto;
-    background: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
 h2 {
     color: #333;
 }
 
-.navbar {
-    background: #333;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-}
-
-.navbar a {
-    color: #fff;
-    margin: 0 10px;
-    text-decoration: none;
-}
-
-.navbar a:hover {
-    text-decoration: underline;
-}
-
-.profile-section {
-    display: flex;
-    justify-content: space-between;
-}
-
-.profile-section img {
+.profile-info img {
     max-width: 150px;
     max-height: 150px;
     border-radius: 50%;
 }
 
-.profile-section form {
+.profile-info form {
     flex-grow: 1;
     margin-left: 20px;
 }
 
-.profile-section input[type="file"] {
+.profile-info input[type="file"] {
     margin-bottom: 10px;
 }
 
-button {
-    background: #333;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
 
-button:hover {
-    background: #555;
-}
