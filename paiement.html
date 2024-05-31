@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulaire de Paiement</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .payment-form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .payment-form h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .payment-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .payment-form input, .payment-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .payment-form input[type="submit"] {
+            background: #04a3ff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .payment-form input[type="submit"]:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-form">
+        <h2>Paiement</h2>
+        <form action="enregistrer_paiement.php" method="post">
+            <label for="type_carte">Type de carte</label>
+            <select id="type_carte" name="type_carte" required>
+                <option value="Visa">Visa</option>
+                <option value="MasterCard">MasterCard</option>
+                <option value="American Express">American Express</option>
+                <option value="PayPal">PayPal</option>
+            </select>
+
+            <label for="numero_carte">Numero de carte</label>
+            <input type="text" id="numero_carte" name="numero_carte" required>
+
+            <label for="nom_carte">Nom sur la carte</label>
+            <input type="text" id="nom_carte" name="nom_carte" required>
+
+            <label for="expiration_mois">Mois d'expiration</label>
+            <input type="number" id="expiration_mois" name="expiration_mois" min="1" max="12" required>
+
+            <label for="expiration_annee">Annee d'expiration</label>
+            <input type="number" id="expiration_annee" name="expiration_annee" min="2024" required>
+
+            <label for="code_securite">Code de seecurite</label>
+            <input type="text" id="code_securite" name="code_securite" required>
+
+            <input type="submit" value="Enregistrer">
+        </form>
+    </div>
+</body>
+</html>
