@@ -1,29 +1,37 @@
 <?php
-require_once 'config.php';
+// Connexion à la base de données
+$host = 'localhost';
+$dbname = 'agora_francia';
+$username = 'root'; // Remplacez par votre nom d'utilisateur
+$password = 'root'; // Remplacez par votre mot de passe
 
-if (!isset($_GET['id'])) {
-    header('Location: tout_parcourir.php');
-    exit;
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Impossible de se connecter à la base de données : " . $e->getMessage());
 }
 
-$article_id = $_GET['id'];
+// Vérifier si l'ID de l'article est passé en paramètre
+if (isset($_GET['id'])) {
+    $id_objet = $_GET['id'];
 
-// Récupérer les informations de l'article depuis la base de données
-$sql = "SELECT * FROM items WHERE id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $article_id);
-$stmt->execute();
-$result = $stmt->get_result();
+    // Récupérer les détails de l'article
+    $sql = "SELECT items.id_objet, items.nom, items.description, items.prix, items.type_vente, items.photo_principale, categories.nom AS categorie_nom
+            FROM items
+            JOIN categories ON items.id_categorie = categories.id
+            WHERE items.id_objet = :id_objet";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['id_objet' => $id_objet]);
+    $article = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($result->num_rows == 0) {
-    header('Location: tout_parcourir.php');
-    exit;
+    // Si l'article n'existe pas
+    if (!$article) {
+        die("Article introuvable.");
+    }
+} else {
+    die("ID de l'article non spécifié.");
 }
-
-$article = $result->fetch_assoc();
-
-$stmt->close();
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +45,7 @@ $conn->close();
 <body>
     <div class="wrapper">
         <header>
-            <h1><?php echo htmlspecialchars($article['nom']); ?></h1>
+            <h1>Agora Francia</h1>
             <div class="logo">
                 <div class="cart"></div>
                 <div class="text">AGORA</div>
@@ -45,22 +53,20 @@ $conn->close();
         </header>
         <nav class="navigation">
             <button onclick="window.location.href='index.php'">Accueil</button>
-            <a href="tout_parcourir.php"><button>Tout Parcourir</button></a>
+            <button onclick="window.location.href='tout_parcourir.php'">Tout Parcourir</button>
             <button onclick="window.location.href='notifications.php'">Notifications</button>
-            <button>Panier</button>
+            <button onclick="window.location.href='panier.php'">Panier</button>
             <button onclick="window.location.href='account.php'">Votre Compte</button>
         </nav>
         <section class="main-section">
             <div class="article-details">
+                <h2><?php echo htmlspecialchars($article['nom']); ?></h2>
                 <img src="<?php echo htmlspecialchars($article['photo_principale']); ?>" alt="<?php echo htmlspecialchars($article['nom']); ?>">
-                <p><strong>Description:</strong> <?php echo htmlspecialchars($article['description']); ?></p>
-                <p><strong>Qualité:</strong> <?php echo htmlspecialchars($article['qualite']); ?></p>
-                <p><strong>Défaut:</strong> <?php echo htmlspecialchars($article['defaut']); ?></p>
-                <p><strong>Prix:</strong> €<?php echo htmlspecialchars($article['prix']); ?></p>
-                <p><strong>Type de vente:</strong> <?php echo htmlspecialchars($article['type_vente']); ?></p>
-                <p><strong>Catégorie:</strong> <?php echo htmlspecialchars($article['id_categorie']); ?></p>
-                <!-- Ajouter d'autres détails pertinents ici -->
-                <button onclick="window.location.href='ajouter_au_panier.php?id=<?php echo $article['id']; ?>'">ajouter au panier</button>
+                <p><?php echo htmlspecialchars($article['description']); ?></p>
+                <p>Prix: <?php echo htmlspecialchars($article['prix']); ?> €</p>
+                <p>Type de vente: <?php echo htmlspecialchars($article['type_vente']); ?></p>
+                <p>Catégorie: <?php echo htmlspecialchars($article['categorie_nom']); ?></p>
+                <button onclick="window.location.href='ajouter_panier.php?id_item=<?php echo $article['id_objet']; ?>'">Ajouter au panier</button>
             </div>
         </section>
         <footer>

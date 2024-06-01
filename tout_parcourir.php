@@ -13,7 +13,7 @@ try {
 }
 
 // Récupérer les articles mis en vente avec leurs catégories et types de vente
-$sql = "SELECT items.id, items.nom, items.description, items.prix, items.type_vente, items.photo_principale, categories.nom AS categorie_nom 
+$sql = "SELECT items.id_objet, items.nom, items.description, items.prix, items.type_vente, items.photo_principale, categories.nom AS categorie_nom 
         FROM items 
         JOIN categories ON items.id_categorie = categories.id
         WHERE items.en_vente = 'oui'";
@@ -48,9 +48,9 @@ foreach ($articles as $article) {
         <nav class="navigation">
             <button onclick="window.location.href='index.php'">Accueil</button>
             <button onclick="window.location.href='tout_parcourir.php'">Tout Parcourir</button>
-            <button>Notifications</button>
-            <button>Panier</button>
-            <button>Votre Compte</button>
+            <button onclick="window.location.href='notifications.php'">Notifications</button>
+            <button onclick="window.location.href='panier.php'">Panier</button>
+            <button onclick="window.location.href='account.php'">Votre Compte</button>
         </nav>
         <section class="main-section">
             <div class="intro">
@@ -70,7 +70,7 @@ foreach ($articles as $article) {
                                         <p><?php echo htmlspecialchars($article['description']); ?></p>
                                         <p><?php echo htmlspecialchars($article['prix']); ?> €</p>
                                         <p>Type de vente : <?php echo htmlspecialchars($article['type_vente']); ?></p>
-                                        <a href="article.php?id=<?php echo $article['id']; ?>">Voir Détails</a>
+                                        <a href="article.php?id=<?php echo $article['id_objet']; ?>">Voir Détails</a>
                                     </div>
                                 <?php endforeach; ?>
                             </div>

@@ -34,7 +34,7 @@ $conn->close();
             <button onclick="window.location.href='index.php'">Accueil</button>
             <a href="tout_parcourir.php"><button>Tout Parcourir</button></a>
             <button onclick="window.location.href='notifications.php'">Notifications</button>
-            <button>Panier</button>
+            <button onclick="window.location.href='panier.php'">Panier</button>
             <button onclick="window.location.href='account.php'">Votre Compte</button>
         </nav>
         <section class="main-section">

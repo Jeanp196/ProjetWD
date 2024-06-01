@@ -1,15 +1,14 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "root"; // Assurez-vous que cela correspond au mot de passe défini pour MAMP
-$dbname = "agora_francia"; // Assurez-vous que le nom de la base de données est correct
+$host = 'localhost';
+$dbname = 'agora_francia';
+$username = 'root';
+$password = 'root';
 
-// Créez une connexion
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-// Vérifiez la connexion
-if (!$conn) {
-    die("La connexion a échoué: " . mysqli_connect_error());
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connexion réussie!";
+} catch (PDOException $e) {
+    die("Impossible de se connecter à la base de données : " . $e->getMessage());
 }
-echo "Connexion réussie!";
 ?>

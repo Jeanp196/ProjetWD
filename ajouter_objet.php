@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                            echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['nom']) . '</option>';
+                            echo '<option value="' . $row['id.objet'] . '">' . htmlspecialchars($row['nom']) . '</option>';
                         }
                     } else {
                         echo '<option value="">Aucune catégorie disponible</option>';

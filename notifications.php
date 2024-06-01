@@ -30,13 +30,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="wrapper">
         <header>
             <h1>Notifications</h1>
-            <nav>
-                <ul>
-                    <li><a href="account.php">Compte</a></li>
-                    <li><a href="logout.php">Déconnexion</a></li>
-                </ul>
-            </nav>
         </header>
+        <nav class="navigation">
+            <button onclick="window.location.href='index.php'">Accueil</button>
+            <a href="tout_parcourir.php"><button>Tout Parcourir</button></a>
+            <button onclick="window.location.href='notifications.php'">Notifications</button>
+            <button onclick="window.location.href='panier.php'">Panier</button>
+            <button onclick="window.location.href='account.php'">Votre Compte</button>
+            <button onclick="window.location.href='logout.php'">Se Déconnecter</button>
+        </nav>
         <section class="main-section">
             <h2>Notifications</h2>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
